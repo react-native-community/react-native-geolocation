@@ -19,7 +19,7 @@ or
 
 `npm install @react-native-community/geolocation --save`
 
-### Mostly automatic installation (react-native 0.59 and lower)
+### Mostly automatic installation (react-native 0.59 and higher)
 
 `react-native link @react-native-community/geolocation`
 
