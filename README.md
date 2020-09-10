@@ -174,7 +174,7 @@ Check out the [example project](example) for more examples.
 #### `setRNConfiguration()`
 
 ```javascript
-geolocation.setRNConfiguration(config);
+Geolocation.setRNConfiguration(config);
 ```
 
 Sets configuration options that will be used in all location requests.
@@ -195,7 +195,7 @@ Supported options:
 #### `requestAuthorization()`
 
 ```javascript
-geolocation.requestAuthorization();
+Geolocation.requestAuthorization();
 ```
 
 Request suitable Location permission based on the key configured on pList. If NSLocationAlwaysUsageDescription is set, it will request Always authorization, although if NSLocationWhenInUseUsageDescription is set, it will request InUse authorization.
@@ -205,7 +205,7 @@ Request suitable Location permission based on the key configured on pList. If NS
 #### `getCurrentPosition()`
 
 ```javascript
-geolocation.getCurrentPosition(geo_success, [geo_error], [geo_options]);
+Geolocation.getCurrentPosition(geo_success, [geo_error], [geo_options]);
 ```
 
 Invokes the success callback once with the latest location info.
@@ -229,7 +229,7 @@ Supported options:
 #### `watchPosition()`
 
 ```javascript
-geolocation.watchPosition(success, [error], [options]);
+Geolocation.watchPosition(success, [error], [options]);
 ```
 
 Invokes the success callback whenever the location changes. Returns a `watchId` (number).
@@ -255,7 +255,7 @@ Supported options:
 #### `clearWatch()`
 
 ```javascript
-geolocation.clearWatch(watchID);
+Geolocation.clearWatch(watchID);
 ```
 
 **Parameters:**
@@ -269,12 +269,12 @@ geolocation.clearWatch(watchID);
 #### `stopObserving()`
 
 ```javascript
-geolocation.stopObserving();
+Geolocation.stopObserving();
 ```
 
 Stops observing for device location changes. In addition, it removes all listeners previously registered.
 
-Notice that this method has only effect if the `geolocation.watchPosition(successCallback, errorCallback)` method was previously invoked.
+Notice that this method has only effect if the `Geolocation.watchPosition(successCallback, errorCallback)` method was previously invoked.
 
 ## Contributors
 
