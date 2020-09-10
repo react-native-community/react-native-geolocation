@@ -19,6 +19,10 @@ or
 
 `npm install @react-native-community/geolocation --save`
 
+### Full automatic installation (react-native 0.60 and upper)
+
+After react-native@0.60 libraries will be automatically linked by Autolinking.
+
 ### Mostly automatic installation (react-native 0.59 and lower)
 
 `react-native link @react-native-community/geolocation`
