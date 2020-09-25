@@ -33,13 +33,13 @@ type GeoOptions = {
  * The Geolocation API extends the web spec:
  * https://developer.mozilla.org/en-US/docs/Web/API/Geolocation
  *
- * See https://facebook.github.io/react-native/docs/geolocation.html
+ * See https://reactnative.dev/docs/geolocation.html
  */
 const Geolocation = {
   /*
    * Sets configuration options that will be used in all location requests.
    *
-   * See https://facebook.github.io/react-native/docs/geolocation.html#setrnconfiguration
+   * See https://reactnative.dev/docs/geolocation.html#setrnconfiguration
    *
    */
   setRNConfiguration: function(config: GeoConfiguration) {
@@ -51,7 +51,7 @@ const Geolocation = {
   /*
    * Requests Location permissions based on the key configured on pList.
    *
-   * See https://facebook.github.io/react-native/docs/geolocation.html#requestauthorization
+   * See https://reactnative.dev/docs/geolocation.html#requestauthorization
    */
   requestAuthorization: function() {
     RNCGeolocation.requestAuthorization();
@@ -60,7 +60,7 @@ const Geolocation = {
   /*
    * Invokes the success callback once with the latest location info.
    *
-   * See https://facebook.github.io/react-native/docs/geolocation.html#getcurrentposition
+   * See https://reactnative.dev/docs/geolocation.html#getcurrentposition
    */
   getCurrentPosition: async function(
     geo_success: Function,
@@ -83,7 +83,7 @@ const Geolocation = {
   /*
    * Invokes the success callback whenever the location changes.
    *
-   * See https://facebook.github.io/react-native/docs/geolocation.html#watchposition
+   * See https://reactnative.dev/docs/geolocation.html#watchposition
    */
   watchPosition: function(
     success: Function,
@@ -107,7 +107,7 @@ const Geolocation = {
   /*
    * Unsubscribes the watcher with the given watchID.
    *
-   * See https://facebook.github.io/react-native/docs/geolocation.html#clearwatch
+   * See https://reactnative.dev/docs/geolocation.html#clearwatch
    */
   clearWatch: function(watchID: number) {
     const sub = subscriptions[watchID];
@@ -136,7 +136,7 @@ const Geolocation = {
   /*
    * Stops observing for device location changes and removes all registered listeners.
    *
-   * See https://facebook.github.io/react-native/docs/geolocation.html#stopobserving
+   * See https://reactnative.dev/docs/geolocation.html#stopobserving
    */
   stopObserving: function() {
     if (updatesEnabled) {

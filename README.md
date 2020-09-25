@@ -32,13 +32,13 @@ or
 
 Drag `RNCGeolocation.xcodeproj` to your project on Xcode (usually under the Libraries group on Xcode):
 
-![xcode-add](https://facebook.github.io/react-native/docs/assets/AddToLibraries.png)
+![xcode-add](https://reactnative.dev/docs/assets/AddToLibraries.png)
 
 ### Link `libRNCGeolocation.a` binary with libraries
 
 Click on your main project file (the one that represents the `.xcodeproj`) select `Build Phases` and drag the static library from the `Products` folder inside the Library you are importing to `Link Binary With Libraries` (or use the `+` sign and choose library from the list):
 
-![xcode-link](https://facebook.github.io/react-native/docs/assets/AddToBuildPhases.png)
+![xcode-link](https://reactnative.dev/docs/assets/AddToBuildPhases.png)
 
 ### Using CocoaPods
 
@@ -119,7 +119,7 @@ Android API >= 18 Positions will also contain a `mocked` boolean to indicate if 
 <p>
   Android API >= 23 Requires an additional step to check for, and request
   the ACCESS_FINE_LOCATION permission using
-  the <a href="https://facebook.github.io/react-native/docs/permissionsandroid.html" target="_blank">PermissionsAndroid API</a>.
+  the <a href="https://reactnative.dev/docs/permissionsandroid.html" target="_blank">PermissionsAndroid API</a>.
   Failure to do so may result in a hard crash.
 </p>
 
@@ -138,7 +138,7 @@ import Geolocation from '@react-native-community/geolocation';
 Geolocation.setRNConfiguration(config);
 ```
 
-If you need to have geolocation API aligned with the browser (cross-platform apps), or want to support backward compatibility, please consider adding following lines at the root level, for example at the top of your App.js file (only for [react native](https://facebook.github.io/react-native/docs/platform-specific-code.html#native-specific-extensions-ie-sharing-code-with-nodejs-and-web)):
+If you need to have geolocation API aligned with the browser (cross-platform apps), or want to support backward compatibility, please consider adding following lines at the root level, for example at the top of your App.js file (only for [react native](https://reactnative.dev/docs/platform-specific-code.html#native-specific-extensions-ie-sharing-code-with-nodejs-and-web)):
 
 ```javascript
 navigator.geolocation = require('@react-native-community/geolocation');
