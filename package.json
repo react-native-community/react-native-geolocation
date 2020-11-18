@@ -68,7 +68,7 @@
     "react": "16.8.3",
     "react-native": "0.59.10",
     "react-test-renderer": "16.8.3",
-    "semantic-release": "^15.13.21"
+    "semantic-release": "^17.2.3"
   },
   "jest": {
     "preset": "react-native",
