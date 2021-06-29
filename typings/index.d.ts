@@ -68,6 +68,15 @@ export interface GeolocationStatic {
 
   stopObserving(): void;
 
+  watchStatus(
+    success: (status: string) => void,
+    error?: (error: GeolocationError) => void,
+    options?: GeolocationOptions): number;
+
+  clearStatusWatch(watchID: number): void;
+
+  stopObservingStatus(): void;
+
   requestAuthorization(): void;
 
   setRNConfiguration(config: GeolocationConfiguration): void;

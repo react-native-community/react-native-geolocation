@@ -46,3 +46,4 @@ buck-out/
       
 # Build
 lib/
+/.vs

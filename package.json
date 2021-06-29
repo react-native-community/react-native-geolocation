@@ -36,7 +36,8 @@
     "build:e2e:ios:release": "detox build -c ios.sim.release",
     "test:e2e:ios:debug": "detox test -c ios.sim.debug",
     "test:e2e:ios:release": "detox test -c ios.sim.release",
-    "prepare": "bob build"
+    "prepare": "bob build",
+    "windows": "react-native run-windows"
   },
   "keywords": [
     "react-native",
@@ -65,8 +66,9 @@
     "jest": "^24.9.0",
     "metro-react-native-babel-preset": "0.56.0",
     "prettier": "^1.18.2",
-    "react": "16.8.3",
-    "react-native": "0.59.10",
+    "react": "17.0.1",
+    "react-native": "0.64.0",
+    "react-native-windows": "^0.64.3",
     "react-test-renderer": "16.8.3",
     "semantic-release": "^15.13.21"
   },

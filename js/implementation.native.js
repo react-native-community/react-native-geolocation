@@ -12,9 +12,13 @@ import {RNCGeolocation, GeolocationEventEmitter} from './nativeInterface';
 
 import invariant from 'invariant';
 import {logError, warning} from './utils';
+import { Platform } from 'react-native';
 
 let subscriptions = [];
 let updatesEnabled = false;
+
+let statusSubscriptions = [];
+let statusUpdatesEnabled = false;
 
 type GeoConfiguration = {
   skipPermissionRequests: boolean,
@@ -53,8 +57,12 @@ const Geolocation = {
    *
    * See https://facebook.github.io/react-native/docs/geolocation.html#requestauthorization
    */
-  requestAuthorization: function() {
-    RNCGeolocation.requestAuthorization();
+  requestAuthorization: async function() {
+    if (Platform.OS === 'windows') {
+        await RNCGeolocation.requestAuthorization();
+    } else {
+        RNCGeolocation.requestAuthorization();
+    }
   },
 
   /*
@@ -73,11 +81,20 @@ const Geolocation = {
     );
 
     // Permission checks/requests are done on the native side
-    RNCGeolocation.getCurrentPosition(
-      geo_options || {},
-      geo_success,
-      geo_error || logError,
-    );
+    if (Platform.OS === 'windows') {
+        RNCGeolocation.getCurrentPosition(geo_options)
+        .then((position) => {
+            geo_success(position);
+        }).catch((error) => {
+            (geo_error || logError)(error);
+        });
+    } else {
+        RNCGeolocation.getCurrentPosition(
+          geo_options || {},
+          geo_success,
+          geo_error || logError,
+        );
+    }
   },
 
   /*
@@ -102,6 +119,33 @@ const Geolocation = {
         : null,
     ]);
     return watchID;
+  },
+
+  /*
+   * Invokes the success callback whenever the location changes.
+   *
+   * See https://facebook.github.io/react-native/docs/geolocation.html#watchposition
+   */
+  watchStatus: function(
+    success: Function,
+    error?: Function,
+    options?: GeoOptions,
+  ): number {
+    if (Platform.OS === 'windows') {
+        if (!statusUpdatesEnabled) {
+          RNCGeolocation.startObservingStatus(options || {});
+          statusUpdatesEnabled = true;
+        }
+        const watchID = statusSubscriptions.length;
+        statusSubscriptions.push([
+          GeolocationEventEmitter.addListener('statusDidChange', success),
+          error
+            ? GeolocationEventEmitter.addListener('geolocationError', error)
+            : null,
+        ]);
+        return watchID;
+    }
+    return 0;
   },
 
   /*
@@ -134,6 +178,37 @@ const Geolocation = {
   },
 
   /*
+   * Unsubscribes the watcher with the given watchID.
+   *
+   * See https://facebook.github.io/react-native/docs/geolocation.html#clearwatch
+   */
+  clearStatusWatch: function(watchID: number) {
+    if (Platform.OS === 'windows') {
+        const sub = statusSubscriptions[watchID];
+        if (!sub) {
+        // Silently exit when the watchID is invalid or already cleared
+        // This is consistent with timers
+        return;
+        }
+
+        sub[0].remove();
+        // array element refinements not yet enabled in Flow
+        const sub1 = sub[1];
+        sub1 && sub1.remove();
+        statusSubscriptions[watchID] = undefined;
+        let noWatchers = true;
+        for (let ii = 0; ii < statusSubscriptions.length; ii++) {
+        if (statusSubscriptions[ii]) {
+            noWatchers = false; // still valid subscriptions
+        }
+        }
+        if (noWatchers) {
+        Geolocation.stopObservingStatus();
+        }
+    }
+  },
+
+  /*
    * Stops observing for device location changes and removes all registered listeners.
    *
    * See https://facebook.github.io/react-native/docs/geolocation.html#stopobserving
@@ -153,6 +228,39 @@ const Geolocation = {
         }
       }
       subscriptions = [];
+    }
+  },
+
+  /*
+   * Stops observing for device location changes and removes all registered listeners.
+   *
+   * See https://facebook.github.io/react-native/docs/geolocation.html#stopobserving
+   */
+  stopObservingStatus: function() {
+    if (Platform.OS === 'windows') {
+        if (statusUpdatesEnabled) {
+        RNCGeolocation.stopObservingStatus();
+        statusUpdatesEnabled = false;
+        for (let ii = 0; ii < statusSubscriptions.length; ii++) {
+            const sub = statusSubscriptions[ii];
+            if (sub) {
+            warning(false, 'Called stopObservingStatus with existing subscriptions.');
+            sub[0].remove();
+            // array element refinements not yet enabled in Flow
+            const sub1 = sub[1];
+            sub1 && sub1.remove();
+            }
+        }
+        statusSubscriptions = [];
+        }
+    }
+  },
+
+  getStatus: function(callback: Function) {
+    if (Platform.OS === 'windows') {
+      RNCGeolocation.getStatus(callback);
+    } else {
+      callback('unknown');
     }
   },
 };
